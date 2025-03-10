@@ -12,8 +12,8 @@ services:
       - "8830:3306"
     volumes:
       - mysql_data_830:/var/lib/mysql
-    networks:
-      - weblab830
+    networks: 
+      - weblab830 
     restart: always
 
   phpmyadmin:
