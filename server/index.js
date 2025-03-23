@@ -82,7 +82,7 @@ DELETE /users/:id ใช้สำหรับลบ users รายคน (ต�
 
 //path= GET /users ใช้สำหรับ get users ทั้งหมดที่บันทึกไว้
 app.get('/users', async(req, res) => {
-  const results = await conn.query('Select * FROM user')
+  const results = await conn.query('Select * FROM users')
       res.json(results[0])
 })
 
@@ -97,7 +97,7 @@ app.post('/users', async(req, res) => {
             errors: errors
           }
        }
-       const results = await conn.query('INSERT INTO user SET ?', user)
+       const results = await conn.query('INSERT INTO users SET ?', user)
        res.json({
         message: "Create user successfully",
         data: results[0]
@@ -118,7 +118,7 @@ app.post('/users', async(req, res) => {
 app.get('/users/:id',async (req, res) => {
   try{
   let id = req.params.id;// ค้นหา  users หรือ index ที่ต้องการดึงข้อมูล
-  const results = await conn.query('Select * FROM user WHERE id = ?', id)
+  const results = await conn.query('Select * FROM users WHERE id = ?', id)
      if (results[0].length == 0) {
         throw {statusCode: 404, message: 'User not found'}
       }
@@ -142,7 +142,7 @@ app.put('/users/:id',async (req, res) => {
      let id = req.params.id;
      let updateUser = req.body;
      const results = await conn.query(
-      'UPDATE user SET ? WHERE id = ?', 
+      'UPDATE users SET ? WHERE id = ?', 
       [updateUser, id]
       )
      res.json({
@@ -163,7 +163,7 @@ app.put('/users/:id',async (req, res) => {
 app.delete('/users/:id',async (req, res) => {
   try{
   let id = req.params.id;
-     const results = await conn.query('DELETE from user WHERE id = ?',id)
+     const results = await conn.query('DELETE from users WHERE id = ?',id)
      res.json({
       message: "Delete user successfully",
       data: results[0]

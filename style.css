@@ -6,7 +6,7 @@
        }
      body { //เปลี่ยนสีพื้นหลังหน้าเว็บ
          font-family: 'Kanit';
-         background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),url('viewy.jpg');
+         background:url('miles-and-gwen-fanart-fe.jpg');
          background-size: cover;
          border-radius: 20px;
          margin: 0;  
@@ -17,7 +17,7 @@
      }
      .container {
          font-family: 'Kanit';
-         background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url('OIP.jpg');
+         background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
          background-size: cover;
          overflow: hidden;
          color: white;
@@ -73,8 +73,8 @@
      .button {
          font-family: 'Kanit';
          font-size: 15px;
-         background: rgb(45, 126 , 231);
-         border-radius: 10px;
+         background: rgb(244, 229, 144);
+         border-radius: 25px;
          border: 0;
          width: 50%;
          height: 50px;
@@ -86,6 +86,9 @@
          background: #22b14c;
          cursor: pointer;
          transition: 0.3s;
+         transform: translateY(-3px);
+         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+
      }
      .message {
          margin-buttom: 10px;
