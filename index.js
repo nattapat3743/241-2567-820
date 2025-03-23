@@ -1,152 +1,112 @@
-
 const BASE_URL = 'http://localhost:8000';
-let mode = 'CREATE';
-let selectedId = '';
+let mode = 'CREATE'; // default mode
+let selectId = '';
 
 window.onload = async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
     console.log('id', id);
+    
+    if (id) {
+        mode = 'EDIT';
+        selectId = id;
 
-    if(id){
-        mode= 'EDIT';
-        selectedId = id;
-        //1.ดึงข้อมูล user ที่ต้องการเเก้ไขออกมา
-        try{
-            
-            const response = await axios.get(`${BASE_URL}/user/${id}`);
+        try {
+            const response = await axios.get(`${BASE_URL}/users/${id}`);
             const user = response.data;
-            console.log('response', response.data);
+
+            // นำข้อมูลที่ดึงมาแสดงใน input
+            document.querySelector('input[name=firstname]').value = user.firstname;
+            document.querySelector('input[name=lastname]').value = user.lastname;
+            document.querySelector('input[name=age]').value = user.age;
+            document.querySelector('textarea[name=description]').value = user.description;
             
-            let firstNameDOM = document.querySelector('input[name = firstname]');
-            let lastNameDOM = document.querySelector('input[name = lastname]');
-            let ageDOM = document.querySelector('input[name = age]');
-            let descriptionDOM = document.querySelector('textarea[name=description]');
+            let genderDom = document.querySelectorAll('input[name=gender]');
+            let interestDoms = document.querySelectorAll('input[name=interest]');
 
-            let genderDOMs = document.querySelectorAll('input[name = gender]:checked') || {};
-            let interestDOMs = document.querySelectorAll('input[name = interest]:checked') || {};
-            console.log('interest', user.interest);
-            
-            firstNameDOM.value = user.firstname;
-            lastNameDOM.value = user.lastname;
-            ageDOM.value = user.age;
-            descriptionDOM.value = user.description;
-
-                for(let i=0; i<gender.length; i++){
-                    if (genderDOMs[i].value == user.gender) {
-                        genderDOMs[i].checked = true;
-                    }
+            for (let i = 0; i < genderDom.length; i++) {
+                if (genderDom[i].value == user.gender) {
+                    genderDom[i].checked = true;
                 }
-                for(let i=0; i<interestDOMs[i].length; i++){
-                    if (user.interest.includes(interestDOMs[i].value)){
-                        interestDOMs[i].checked = true;
-                    }
+            }
+
+            for (let i = 0; i < interestDoms.length; i++) {
+                if (user.interests.includes(interestDoms[i].value)) {
+                    interestDoms[i].checked = true;
                 }
-
-
-        } catch (error){
+            }
+        } catch (error) {
             console.log('error', error);
-
         }
-        //2.นำข้อมูลที่ได้มาใส่ใน input
     }
 }
 
+// ฟังก์ชันตรวจสอบข้อมูลก่อนส่ง
 const validateData = (userData) => {
-    let errors = [];
-    if (!userData.firstname){
-        errors.push('กรุณากรอกชื่อ')
-    }
-    if (!userData.lastname){
-        errors.push('กรุณากรอกนามสกุล')
-    }
-    if (!userData.age){
-        errors.push('กรุณากรอกอายุ')
-    }
-    if (!userData.gender){
-        errors.push('กรุณากรอกเพศ')
-    }
-    if (!userData.interest){
-        errors.push('กรุณากรอกสิ่งที่สนใจ')
-    }
-    if (!userData.description){
-        errors.push('กรุณากรอกข้อมูลส่วนตัว')
-    }
-    return errors;
+   let errors = [];
+   if (!userData.firstname) errors.push('กรุณากรอกชื่อ');
+   if (!userData.lastname) errors.push('กรุณากรอกนามสกุล');
+   if (!userData.age) errors.push('กรุณากรอกอายุ');
+   if (!userData.gender) errors.push('กรุณาเลือกเพศ');
+   if (!userData.interests.length) errors.push('กรุณาเลือกความสนใจ');
+   if (!userData.description) errors.push('กรุณากรอกข้อมูล');
+   return errors;
 }
-const submitData = async () => {
-    let firstNameDOM = document.querySelector('input[name = firstname]');
-    let lastNameDOM = document.querySelector('input[name = lastname]');
-    let ageDOM = document.querySelector('input[name = age]');
-    let genderDOM = document.querySelector('input[name = gender]:checked');
-    let interestDOM = document.querySelectorAll('input[name = interest]:checked');
-    let descriptionDOM = document.querySelector('textarea[name=description]');
 
-    let messageDOM = document.getElementById('message')
+// ฟังก์ชันส่งข้อมูล
+const submitData = async () => {
+    let firstNameDom = document.querySelector('input[name=firstname]');
+    let lastNameDom = document.querySelector('input[name=lastname]');
+    let ageDom = document.querySelector('input[name=age]');
+    let genderDom = document.querySelector('input[name=gender]:checked');
+    let interestDoms = document.querySelectorAll('input[name=interest]:checked');
+    let descriptionDom = document.querySelector('textarea[name=description]');
+    let messageDOM = document.getElementById('message');
+
+    let interests = [];
+    interestDoms.forEach(dom => interests.push(dom.value));
+
+    let userData = {
+        firstname: firstNameDom.value,
+        lastname: lastNameDom.value,
+        age: ageDom.value,
+        gender: genderDom ? genderDom.value : '',
+        description: descriptionDom.value,
+        interests: interests
+    }
+
+    console.log('submitData', userData);
+
+    // ตรวจสอบข้อมูลก่อนส่ง
+    const errors = validateData(userData);
+    if (errors.length > 0) {
+        messageDOM.innerHTML = `<div>กรุณากรอกข้อมูลให้ครบถ้วน</div><ul>${errors.map(err => `<li>${err}</li>`).join('')}</ul>`;
+        messageDOM.className = 'message danger';
+        return;
+    }
 
     try {
-        let interest = '';
-
-        for (let i = 0; i < interestDOM.length; i++) {
-            interest += interestDOM[i].value;
-            if (i < interest.length - 1) {
-                interest += ",";
-            }
-        }
-
-        let userData = {
-            firstname: firstNameDOM.value,
-            lastname: lastNameDOM.value,
-            age: ageDOM.value,
-            gender: genderDOM.value,
-            description: descriptionDOM.value,
-            interest: interest
-        }
-        console.log('submitData', userData);
-
-        const errors = validateData(userData);
-
-        // if (errors.length > 0){
-        //     throw{
-        //         message: 'กรุณากรอกข้อมูลให้ครบถ้วน',
-        //         errors: errors
-        //     }
-        // } //front-end
         let message = 'บันทึกข้อมูลเรียบร้อย';
+        let response;
 
-        if (mode=='CREATE'){
-            const response = await axios.post(`${BASE_URL}/users`, userData);
-            console.log('response', response.data);
+        if (mode === 'CREATE') {
+            response = await axios.post(`${BASE_URL}/users`, userData);
         } else {
-            const response = await axios.put(`${BASE_URL}/users/selectedId`, userData);
-            message = 'เเก้ไขข้อมูลเรียบร้อย';
-            console.log('response', response.data);
-
+            response = await axios.put(`${BASE_URL}/users/${selectId}`, userData);
+            message = 'แก้ไขข้อมูลเรียบร้อย';
         }
 
-
-            messageDOM.innerText = message;
-            messageDOM.className = 'message success';
-
+        console.log('response', response.data);
+        messageDOM.innerText = message;
+        messageDOM.className = 'message success';
     } catch (error) {
         console.log('error message', error.message);
-        console.log('error', error.errors);
-        if (error.response) {
-            console.log(error.response);
-            error.message = error.response.data.message;
-            error.errors = error.response.data.errors;
-        }
-
-        let htmlData = '<div>';
-        htmlData += '<ul>'
-        htmlData += `<div>${error.message}</div>`;
-        for (let i=0; i < error.errors.length; i++){
-            htmlData += `<li>${error.errors[i]}</li>`;
-        }
-        htmlData += '</ul>';
-        htmlData += '</div>';
-
-            messageDOM.innerHTML = htmlData;
-            messageDOM.className = 'message danger';
+        messageDOM.innerHTML = `<div>เกิดข้อผิดพลาด: ${error.message}</div>`;
+        messageDOM.className = 'message danger';
     }
 }
+
+// เพิ่ม Event Listener ให้ปุ่มกด
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('submitBtn').addEventListener('click', submitData);
+});
