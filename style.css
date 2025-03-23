@@ -28,7 +28,7 @@
          padding: 40px;
          box-sizing: border-box;
          border-radius: 10px;
-         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+         box-shadow: 4p 4px 20px rgba(0, 0, 0, 0.8);
      }
      .header {
          font-size: 30px;
@@ -73,7 +73,7 @@
      .button {
          font-family: 'Kanit';
          font-size: 15px;
-         background: rgb(244, 229, 144);
+         background: rgb(227, 160, 246);
          border-radius: 25px;
          border: 0;
          width: 50%;
@@ -81,9 +81,10 @@
          color: white;
          box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
          transition: 0.1s;
+         text-shadow: 1px 1px 2px rgb(4, 4, 4);
      }
      button:hover {
-         background: #22b14c;
+         background:rgb(172, 73, 242);
          cursor: pointer;
          transition: 0.3s;
          transform: translateY(-3px);
