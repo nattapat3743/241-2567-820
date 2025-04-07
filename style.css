@@ -1,12 +1,11 @@
-        /*ส่วนนี้คือ CSS */
-        /*ใช้สำหรับเเต่ง (id class)*/
+
         @font-face {
          font-family: 'Kanit';
          src: url('./Kanit/Kanit-Regular.ttf');
        }
-     body { //เปลี่ยนสีพื้นหลังหน้าเว็บ
+     body { 
          font-family: 'Kanit';
-         background:url('miles-and-gwen-fanart-fe.jpg');
+         background:url('loki3.jpg');
          background-size: cover;
          border-radius: 20px;
          margin: 0;  
@@ -17,7 +16,8 @@
      }
      .container {
          font-family: 'Kanit';
-         background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+         margin-top: 12px;
+         background: linear-gradient(5deg,rgba(67, 71, 65, 0.94), rgba(112, 88, 81, 0.89));
          background-size: cover;
          overflow: hidden;
          color: white;
@@ -28,7 +28,8 @@
          padding: 40px;
          box-sizing: border-box;
          border-radius: 10px;
-         box-shadow: 4p 4px 20px rgba(0, 0, 0, 0.8);
+         box-shadow: 4px 4px 20px rgba(176, 251, 100, 0.8);
+         text-shadow: 1px 1px 2px rgb(4, 4, 4);
      }
      .header {
          font-size: 30px;
@@ -42,7 +43,6 @@
          margin-bottom: 10px;
          padding-left: 10px;
      }
-     // flex(gender)
      .flex {
          margin-bottom: 10px;
      }
@@ -54,7 +54,7 @@
      input.form , textarea {
          border: 1px solid #ccc;
          background: rgba(255, 255, 255, 0.3);
-         color: white;
+         color: black;
          letter-spacing: 1px;
          border: 0;
          border-radius:5px;
@@ -73,23 +73,22 @@
      .button {
          font-family: 'Kanit';
          font-size: 15px;
-         background: rgb(227, 160, 246);
-         border-radius: 25px;
+         background: linear-gradient(200deg,rgb(243, 131, 71),rgb(248, 81, 81));
+         border-radius: 7px;
          border: 0;
          width: 50%;
          height: 50px;
          color: white;
-         box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
          transition: 0.1s;
          text-shadow: 1px 1px 2px rgb(4, 4, 4);
      }
      button:hover {
-         background:rgb(172, 73, 242);
+         background: linear-gradient(200deg,rgb(246, 239, 30),rgb(134, 240, 110));
          cursor: pointer;
          transition: 0.3s;
          transform: translateY(-3px);
-         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
-
+         box-shadow: 0px 0px 20px rgb(134, 240, 110);
+         text-shadow: 1px 1px 2px rgb(134, 240, 110);
      }
      .message {
          margin-buttom: 10px;
@@ -108,6 +107,34 @@
          display: block;
          margin-bottom: 20px;
      }
+      select {
+        padding: 10px;
+        border-radius: 5px;
+        border: 2px solidrgb(0, 0, 0);
+        font-size: 16px;
+        width: 100%;
+        background-color: #f0f8ff;
+        transition: border-color 0.3s ease, background-color 0.3s ease;
+      }
+      
+      select:hover {
+        background-color: #e0f7fa;
+        border-color: #00796b;
+      }
+      
+      /* Style for options inside the select dropdown */
+      option {
+        font-size: 16px;
+        padding: 10px;
+      }
+      
+      /* Customize the header */
+      h2 {
+        font-size: 14px;
+        color: rgb(255, 255, 255);
+        text-align: center;
+        
+      }
 
      @media screen and (max-width: 768px) {
          .flex {

@@ -62,23 +62,7 @@ const initMySQL = async () => {
       }
       return errors
    }
-/*
-app.get('/testdbnew',async (req, res) => {
-  try {
-     const results = await conn.query('Select * FROM user')
-     res.json(results[0])
-  } catch (error) {
-    console.log('error',error.message)
-    res.status(500).json({error: 'Error fetching users'})
-  } 
-})
-/*
-GET /users ใช้สำหรับ get users ทั้งหมดที่บันทึกไว้
-POST /userห ใช้สำหรับสร้าง users ใหม่บันทึกเข้าไป
-GET /users/:id สำหรับดึง users รายคนออกมา
-PUT /users/:id ใช้สำหรับแก้ไข users รายคน (ตาม id ที่บันทึกเข้าไป)
-DELETE /users/:id ใช้สำหรับลบ users รายคน (ตาม id ที่บันทึกเข้าไป)
-*/
+
 
 //path= GET /users ใช้สำหรับ get users ทั้งหมดที่บันทึกไว้
 app.get('/users', async(req, res) => {

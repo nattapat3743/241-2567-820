@@ -23,7 +23,8 @@ const loadData = async() => {
               <th>Gender</th>
               <th>Interests</th>
               <th>Description</th>
-              <th>Action</th>
+              <th>Edit</th>
+              <th>Delete</th>
           </tr>
       </thead>
       <tbody>
@@ -41,7 +42,9 @@ const loadData = async() => {
           <td>${users.interests || '-'}</td>
           <td>${users.description || '-'}</td>
           <td>
-          <a href="index.html?id=${users.id}"><button class='Edit'>Edit✏️</button></a>
+          <a href="index1.html?id=${users.id}"><button class='Edit'>Edit✏️</button></a>
+          </td>
+          <td>
           <button class="delete" data-id="${users.id}">Delete🗑️</button>
           </td>
       </tr>

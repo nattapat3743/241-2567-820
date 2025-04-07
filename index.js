@@ -96,17 +96,6 @@ const submitData = async () => {
         interests: interest
     }
     console.log('submitData',userData);
-    /*
-        const errors = validateData(userData)
-
-        if(errors.length > 0) {
-            //มี error
-            throw {
-                message: 'กรุณากรอกข้อมูลให้ครบถ้วน',
-                errors : errors
-            }
-        }
-    */
         let message = 'บันทึกข้อมูลเรียบร้อย'
         if (mode == 'CREATE') {
           const response = await axios.post(`${BASE_URL}/users`, userData)
